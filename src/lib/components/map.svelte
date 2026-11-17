@@ -18,11 +18,12 @@
 
     const mapActions: Attachment<HTMLElement> = (e) => {
         const setupLocations = (): void => {
-            for (const { lat, lng, name, marker_icon } of locations) {
+            for (const { lat, lng, name, marker_icon, priority } of locations) {
                 const item = marker([lat, lng], {
                     icon: icon({
                         iconUrl: marker_icon,
-                        iconSize: [25, 25]
+                        iconSize: [25, 25],
+                        className: priority
                     })
                 }).addTo(map)
 
