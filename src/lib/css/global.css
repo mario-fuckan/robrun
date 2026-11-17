@@ -5,6 +5,7 @@
 
 :root {
     --leaflet-bg: #61adb5;
+    font-size: 100%;
 }
 
 .leaflet-container {
