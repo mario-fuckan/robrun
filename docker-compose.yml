@@ -4,6 +4,6 @@ services:
     container_name: myapp
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "9000:3000"
     environment:
       - ORIGIN=http://localhost:3000
