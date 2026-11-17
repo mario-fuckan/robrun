@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { LayoutProps } from "./$types"
+    import "leaflet/dist/leaflet.css"
     import "#lib/css/global.css"
     import favicon from "#lib/assets/favicon.svg"
 
