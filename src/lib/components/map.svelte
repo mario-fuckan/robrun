@@ -7,7 +7,9 @@
         icon,
         imageOverlay,
         type LatLngBoundsExpression,
-        type LeafletMouseEvent
+        type LeafletMouseEvent,
+        type LeafletEvent,
+        type Marker
     } from "leaflet"
     import { locations } from "#lib/other/data.ts"
     import LootyBay from "#lib/assets/maps/lootybay.webp"
@@ -16,6 +18,26 @@
         // EventListener functions
         const handleClick = (e: LeafletMouseEvent) => {
             console.log(Math.round(e.latlng.lat), Math.round(e.latlng.lng))
+        }
+
+        const handleZoom = (e: LeafletEvent) => {
+            const zoom: number = e.target._zoom
+
+            if (zoom < -0.8) {
+                for (const marker of markers) {
+                    const marker_element = marker.getElement()
+
+                    if (marker_element?.classList.contains("LOW")) {
+                        marker.setOpacity(0)
+                        marker.closeTooltip()
+                    }
+                }
+            } else {
+                for (const marker of markers) {
+                    marker.setOpacity(1)
+                    marker.openTooltip()
+                }
+            }
         }
 
         // Setup functions
@@ -34,6 +56,8 @@
                     direction: "bottom",
                     offset: [0, 20]
                 })
+
+                markers.push(item)
             }
         }
 
@@ -47,14 +71,14 @@
             zoomControl: false
         })
 
+        let markers: Marker[] = []
+
         const bounds: LatLngBoundsExpression = [
             [0, 0],
             [3355, 4096]
         ]
 
-        imageOverlay(LootyBay, bounds, {
-            className: "meow"
-        }).addTo(map)
+        imageOverlay(LootyBay, bounds).addTo(map)
 
         map.fitBounds(bounds)
 
@@ -62,10 +86,12 @@
 
         // Map eventListeners
         map.addEventListener("click", handleClick)
+        map.addEventListener("zoom", handleZoom)
 
         return () => {
             // Cleanup
             map.removeEventListener("click", handleClick)
+            map.removeEventListener("zoom", handleZoom)
             map.remove()
         }
     }
