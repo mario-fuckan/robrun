@@ -6,4 +6,4 @@ services:
     ports:
       - "9000:3000"
     environment:
-      - ORIGIN=http://localhost:3000
+      - ORIGIN=https://robrun.mariofuckan.com
