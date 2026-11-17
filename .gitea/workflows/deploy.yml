@@ -1,0 +1,19 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Pull the code
+        uses: actions/checkout@v4
+
+      - name: Build and deploy the image
+        run: docker compose up -d
+
+      - name: Clean up old images
+        run: docker image prune -f
