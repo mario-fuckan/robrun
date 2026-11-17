@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: 6bb7483fece0
+    runs-on: self-hosted:6bb7483fece0
     steps:
       - name: Pull the code
         uses: actions/checkout@v4
