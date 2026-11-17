@@ -43,7 +43,8 @@
                 item.bindTooltip(name, {
                     permanent: true,
                     direction: "bottom",
-                    offset: [0, 20]
+                    offset: [0, 10],
+                    className: "tooltip"
                 })
 
                 if (priority == "HIGH") {

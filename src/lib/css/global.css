@@ -10,3 +10,17 @@
 .leaflet-container {
     background: var(--leaflet-bg);
 }
+
+.tooltip {
+    font-size: 0.6rem;
+    background-color: black;
+    padding: 0.5rem 1rem;
+    color: beige;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.tooltip::before {
+    display: none;
+}
