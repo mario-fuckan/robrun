@@ -6,10 +6,9 @@
         marker,
         icon,
         imageOverlay,
+        layerGroup,
         type LatLngBoundsExpression,
-        type LeafletMouseEvent,
-        type LeafletEvent,
-        type Marker
+        type LeafletMouseEvent
     } from "leaflet"
     import { locations } from "#lib/other/data.ts"
     import LootyBay from "#lib/assets/maps/lootybay.webp"
@@ -20,23 +19,13 @@
             console.log(Math.round(e.latlng.lat), Math.round(e.latlng.lng))
         }
 
-        const handleZoom = (e: LeafletEvent) => {
-            const zoom: number = e.target._zoom
+        const handleZoom = () => {
+            const zoom: number = map.getZoom()
 
             if (zoom < -0.8) {
-                for (const marker of markers) {
-                    const marker_element = marker.getElement()
-
-                    if (marker_element?.classList.contains("LOW")) {
-                        marker.setOpacity(0)
-                        marker.closeTooltip()
-                    }
-                }
+                lowLayer.removeFrom(map)
             } else {
-                for (const marker of markers) {
-                    marker.setOpacity(1)
-                    marker.openTooltip()
-                }
+                lowLayer.addTo(map)
             }
         }
 
@@ -49,7 +38,7 @@
                         iconSize: [25, 25],
                         className: priority
                     })
-                }).addTo(map)
+                })
 
                 item.bindTooltip(name, {
                     permanent: true,
@@ -57,8 +46,17 @@
                     offset: [0, 20]
                 })
 
-                markers.push(item)
+                if (priority == "HIGH") {
+                    item.addTo(highLayer)
+                } else {
+                    item.addTo(lowLayer)
+                }
             }
+        }
+
+        const setupLayers = () => {
+            highLayer.addTo(map)
+            lowLayer.addTo(map)
         }
 
         // Map setup
@@ -71,7 +69,8 @@
             zoomControl: false
         })
 
-        let markers: Marker[] = []
+        const lowLayer = layerGroup()
+        const highLayer = layerGroup()
 
         const bounds: LatLngBoundsExpression = [
             [0, 0],
@@ -83,15 +82,17 @@
         map.fitBounds(bounds)
 
         setupLocations()
+        setupLayers()
+        handleZoom()
 
         // Map eventListeners
-        map.addEventListener("click", handleClick)
-        map.addEventListener("zoom", handleZoom)
+        map.on("click", handleClick)
+        map.on("zoom", handleZoom)
 
         return () => {
             // Cleanup
-            map.removeEventListener("click", handleClick)
-            map.removeEventListener("zoom", handleZoom)
+            map.off("click", handleClick)
+            map.off("zoom", handleZoom)
             map.remove()
         }
     }

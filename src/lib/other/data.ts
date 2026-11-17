@@ -1,4 +1,4 @@
-import type { PRIORITY, LOCATIONS } from "./types"
+import type { LOCATIONS } from "./types"
 import SmallHotel from "#lib/assets/icons/small_hotel.webp"
 import Parking from "#lib/assets/icons/parking.webp"
 import Cafe from "#lib/assets/icons/cafe.webp"
