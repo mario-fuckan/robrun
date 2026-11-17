@@ -16,6 +16,9 @@ import Hospital from "#lib/assets/icons/hospital.svg"
 import Gallery from "#lib/assets/icons/art_gallery.webp"
 import Bank from "#lib/assets/icons/bank.webp"
 import GasStation from "#lib/assets/icons/gas_station.webp"
+import Helipad from "#lib/assets/icons/helipad.webp"
+import Fence from "#lib/assets/icons/fence.webp"
+import Cargo from "#lib/assets/icons/cargo.webp"
 
 export const locations: LOCATIONS = [
     {
@@ -36,7 +39,7 @@ export const locations: LOCATIONS = [
         lat: 968,
         lng: 3129,
         name: "FENCE",
-        marker_icon: "/",
+        marker_icon: Fence,
         priority: "HIGH"
     },
     {
@@ -64,7 +67,7 @@ export const locations: LOCATIONS = [
         lat: 1563,
         lng: 3473,
         name: "SMUGGLER'S VAN",
-        marker_icon: "/",
+        marker_icon: Cargo,
         priority: "HIGH"
     },
     {
@@ -92,7 +95,7 @@ export const locations: LOCATIONS = [
         lat: 1774,
         lng: 3320,
         name: "FENCE",
-        marker_icon: "/",
+        marker_icon: Fence,
         priority: "HIGH"
     },
     {
@@ -211,35 +214,35 @@ export const locations: LOCATIONS = [
         lat: 1129,
         lng: 1770,
         name: "HELIPAD",
-        marker_icon: "/",
+        marker_icon: Helipad,
         priority: "LOW"
     },
     {
         lat: 1593,
         lng: 1801,
         name: "HELIPAD",
-        marker_icon: "/",
+        marker_icon: Helipad,
         priority: "LOW"
     },
     {
         lat: 1223,
         lng: 964,
         name: "SMUGGLER'S VAN",
-        marker_icon: "/",
+        marker_icon: Cargo,
         priority: "HIGH"
     },
     {
         lat: 493,
         lng: 1247,
         name: "FENCE",
-        marker_icon: "/",
+        marker_icon: Fence,
         priority: "HIGH"
     },
     {
         lat: 2493,
         lng: 1816,
         name: "FENCE",
-        marker_icon: "/",
+        marker_icon: Fence,
         priority: "HIGH"
     },
     {
