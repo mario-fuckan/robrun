@@ -12,11 +12,13 @@
     import { locations } from "#lib/other/data.ts"
     import LootyBay from "#lib/assets/maps/lootybay.webp"
 
-    const handleClick = (e: LeafletMouseEvent) => {
-        console.log(Math.round(e.latlng.lat), Math.round(e.latlng.lng))
-    }
-
     const mapActions: Attachment<HTMLElement> = (e) => {
+        // EventListener functions
+        const handleClick = (e: LeafletMouseEvent) => {
+            console.log(Math.round(e.latlng.lat), Math.round(e.latlng.lng))
+        }
+
+        // Setup functions
         const setupLocations = (): void => {
             for (const { lat, lng, name, marker_icon, priority } of locations) {
                 const item = marker([lat, lng], {
@@ -35,16 +37,15 @@
             }
         }
 
+        // Map setup
         const map = new LeafletMap(e, {
             crs: CRS.Simple,
             minZoom: -3,
             maxZoom: 1,
-            zoomSnap: 0
+            zoomSnap: 0,
+            attributionControl: false,
+            zoomControl: false
         })
-
-        map.addEventListener("click", handleClick)
-
-        map.attributionControl.setPrefix(false)
 
         const bounds: LatLngBoundsExpression = [
             [0, 0],
@@ -59,7 +60,11 @@
 
         setupLocations()
 
+        // Map eventListeners
+        map.addEventListener("click", handleClick)
+
         return () => {
+            // Cleanup
             map.removeEventListener("click", handleClick)
             map.remove()
         }
